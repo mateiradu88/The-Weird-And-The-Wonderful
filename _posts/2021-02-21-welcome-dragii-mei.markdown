@@ -6,4 +6,5 @@ category: intro
 author:
 - Matei Radu 
 ---
+
 Hey hey, am lansat 'platforma' asta pentru The Weird and The Wonderful. Aici putem pune toate nebuniile sub forma de blog posts, ca sa nu se piarda pe click-up sau pe altundeva. :))
