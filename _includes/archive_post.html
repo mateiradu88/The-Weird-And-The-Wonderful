@@ -6,7 +6,8 @@
       <a class="post-link" href="{{ post.url | relative_url }}">
         {{ post.title | escape }}
       </a>
-      <span class="post-meta">{{ post.author | default}}</span>
+      {% assign author-link = 'authors' | append: '/' | append: post.author|downcase|replace:'"', ''|replace:' ', '-'|replace:'[', ''|replace:']', '' %}
+      <a class="post-meta" href="{{ author-link | relative_url }}">{{ post.author | default}}</a>
     </h3>
     {%- if site.show_excerpts -%}
       {{ post.excerpt }}
