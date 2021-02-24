@@ -2,7 +2,7 @@
 layout: post
 title:  "Vă pup și vă stimez"
 date:   2021-02-21 13:11:30 +0200
-category: 
+categories: 
 - intro
 author:
 - Matei Radu 

@@ -11,7 +11,8 @@ layout: default
         {{ page.date | date: date_format }}
       </time>
       {%- if page.author -%}
-        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
+        {% assign author-link = 'authors' | append: '/' | append: page.author|downcase|replace:'"', ''|replace:' ', '-'|replace:'[', ''|replace:']', '' %}
+        • <a class="post-meta" href="{{ author-link | relative_url }}">{{ page.author | default}}</a>
       {%- endif -%}</p>
   </header>
 
@@ -24,18 +25,32 @@ layout: default
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+  <div class="related-posts">
+    <h2>Postări similare</h2>
+    <ul>
+  {% assign titles = "A,A" | split: "," %}
   {% for category in site.categories %}
-  {% if category[0] == page.category %}
-    <div class="related-posts">
-      <h2>Postări similare</h2>
-      <ul>
+    {% for page_category in page.categories %}
+      {% if page_category == category[0] %}
         {% for post in category[1] %}
-          {%if post.title != page.title%}
-            <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-          {%endif%}
+          {% assign check = 1 %}
+          {% for similar_post in titles %}
+            {% if similar_post == post.title %}
+              {% assign check = 0 %}
+            {% endif %}
+          {% endfor %}
+          {% if post.title != page.title %}
+            {% if check == 1 %}
+              <li><a href="{{ post.url | relative_url}}">{{ post.title }}</a></li>
+              {% assign titles = titles | join: "," %}
+              {% assign titles = titles | append: "," | append: post.title %}
+              {% assign titles = titles | split: "," %}
+            {% endif %}
+          {% endif %}
         {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
+      {% endif %}
+    {% endfor %}
   {% endfor %}
+</ul>
+</div>
 </article>
